@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "name": "John Doe",
+    "branch": "Civil"
+  },
+  {
+    "id": "2",
+    "name": "Jane Smith",
+    "branch": "Mechanical"
+  },
+  {
+    "id": "4",
+    "name": "Bob Lee",
+    "branch": "Civil"
+  },
+  {
+    "id": "5",
+    "name": "Charlie Brown",
+    "branch": "Computer Science"
+  }
+]

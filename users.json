@@ -1,0 +1,44 @@
+[
+  {
+    "Username": "Prateek",
+    "Password": "pra123",
+    "FirstName": "Prateek",
+    "LastName": "Dey"
+  },
+  {
+    "Username": "Mayank",
+    "Password": "may123",
+    "FirstName": "mayank",
+    "LastName": "yadav"
+  },
+  {
+    "Username": "Unnati",
+    "Password": "unnati",
+    "FirstName": "Unnati",
+    "LastName": "Gupta"
+  },
+  {
+    "Username": "abhay",
+    "Password": "abh",
+    "FirstName": "Abhay",
+    "LastName": "Singh"
+  },
+  {
+    "Username": "vishesh",
+    "Password": "vish",
+    "FirstName": "vish",
+    "LastName": "sen"
+  },
+  {
+    "Username": "mehak",
+    "Password": "meh",
+    "FirstName": "mehak",
+    "LastName": "sharma"
+  },
+  {
+    "Username": "bipin",
+    "Password": "bipin",
+    "FirstName": "bipin",
+    "LastName": "singh"
+  }
+]

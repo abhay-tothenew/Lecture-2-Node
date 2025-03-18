@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>REST API</title>
+  </head>
+  <body>
+    <h2>User Search</h2>
+
+    <input type="text" id="search" placeholder="Search" />
+    <button type="button" id="search-btn" onclick="searchUsers()">
+      Search
+    </button>
+
+    <div
+      id="autocomplete-list"
+      class="autocomplete-list"
+      style="display: none"
+    ></div>
+
+
+    
+    <h2>Create User</h2>
+    <form id="create-user-form">
+      <input type="text" id="username" placeholder="Username" required /><br />
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+        required
+      /><br />
+      <input
+        type="text"
+        id="firstName"
+        placeholder="First Name"
+        required
+      /><br />
+      <input type="text" id="lastName" placeholder="Last Name" required /><br />
+      <button type="submit">Create User</button>
+    </form>
+  </body>
+  <script>
+    function debounce(func, delay) {
+      let timerId;
+
+      return function (...args) {
+        clearTimeout(timerId);
+        timerId = setTimeout(() => {
+          func.apply(this, args);
+        }, delay);
+      };
+    }
+
+    async function searchUsers(query) {
+      const response = await fetch(
+        `http://localhost:3000/users/search?query=${query}`
+      );
+      const data = await response.json();
+      console.log("Search Users", data);
+      display(data);
+    }
+
+    function display(data) {
+      const list = document.getElementById("autocomplete-list");
+
+      list.innerHTML = "";
+
+      data.forEach((user) => {
+        const item = document.createElement("div");
+        item.innerText = user.Username;
+        list.appendChild(item);
+      });
+
+      list.style.display = "block";
+    }
+
+    //debounce on search
+
+    const searchInput = document.getElementById("search");
+
+    searchInput.addEventListener(
+      "input",
+      debounce(function () {
+        const query = searchInput.value;
+
+        if (query.length > 2) {
+          searchUsers(query);
+        } else {
+          document.getElementById("autocomplete-list").style.display = "none";
+        }
+      }, 300)
+    );
+
+    async function fetchUsers() {
+        const response = await fetch("http://localhost:3000/users");
+        const users = await response.json();
+        const usersList = document.getElementById("users-list");
+
+        usersList.innerHTML = ""; // Clear the existing list
+
+        // Loop through all users and display their Username
+        users.forEach((user) => {
+          const listItem = document.createElement("li");
+          listItem.textContent = user.Username; // Only show the Username
+          usersList.appendChild(listItem);
+        });
+      }
+
+
+      window.onload = fetchUsers();
+
+    //creation form submission
+
+    const form = document.getElementById("create-user-form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const firstName = document.getElementById("firstName").value;
+      const lastName = document.getElementById("lastName").value;
+
+      const response = await fetch("http://localhost:3000/users/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          Username: username,
+          Password: password,
+          FirstName: firstName,
+          LastName: lastName,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+      alert(data.message);
+
+      form.reset();
+    });
+  </script>
+</html>
